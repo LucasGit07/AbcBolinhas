@@ -1,0 +1,17 @@
+#Lucas Quadros Batista ### Verbo GET – listar todos GET http://localhost:8000/produto/ HTTP/1.1
+
+### Verbo GET – listar um GET http://localhost:8000/produto/1 HTTP/1.1
+
+### Verbo POST – adicionar POST http://127.0.0.1:8000/produto/ HTTP/1.1 content-type: application/json
+
+{
+"nome" : "Produto 1", "descricao" : "descrição 1", "foto" : "", "valor_unitario" : 10.0
+}
+
+### Verbo PUT – atualiza PUT http://127.0.0.1:8000/produto/1 HTTP/1.1 content-type: application/json
+
+{
+"nome" : "Produto 2", "descricao" : "descrição 2", "foto" : "", "valor_unitario" : 20.0
+}
+
+### Verbo DELETE - excluir DELETE http://127.0.0.1:8000/produto/1 HTTP/1.1

@@ -1,0 +1,22 @@
+# Edita Comanda
+@router.put("/comanda", tags=["Comanda"])
+async def put_comanda(corpo: Comanda):
+try:
+session = db.Session()
+# busca os dados atuais da comanda
+dados = session.query(ComandaDB).filter(ComandaDB.id_comanda == corpo.id_comanda).one()
+# atualiza os dados
+#dados.id_comanda == corpo.id_comanda
+dados.comanda = corpo.comanda
+dados.data_hora = corpo.data_hora
+dados.status = corpo.status
+dados.funcionario_id = corpo.funcionario_id
+dados.cliente_id = corpo.cliente_id
+session.add(dados)
+session.commit()
+return {"id": dados.id_comanda}, 200
+except Exception as e:
+session.rollback()
+return {"erro": str(e)}, 400
+finally:
+session.close()
