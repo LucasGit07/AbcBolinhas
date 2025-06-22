@@ -1,0 +1,39 @@
+services:
+  db:
+    image: mysql:8
+    container_name: mysql_commandas_api
+    environment:
+      MYSQL_ROOT_PASSWORD: abcBolinhas12345
+      MYSQL_DATABASE: comandas_db
+      MYSQL_USER: coelho
+      MYSQL_PASSWORD: abcBolinhas12345
+    ports:
+      - 3307:3306
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    command: >
+      bash -c "
+      docker-entrypoint.sh mysqld &
+      pid=\$!
+      sleep 30 &&
+      mysql -u root -pabcBolinhas12345 -e 'CREATE DATABASE IF NOT EXISTS comandas_db;'
+      wait \$pid
+      "
+
+  comandas_api:
+    image: lucasquadrosbatista/comanda-api:latest
+    container_name: pastelariadozeapi
+    depends_on:
+      - db
+    environment:
+      MYSQL_DB_HOST: db:3306
+      MYSQL_DB_USER: coelho
+      MYSQL_DB_PASSWORD: abcBolinhas12345
+    ports:
+      - "4443:4443"
+    restart: always
+
+volumes:
+  db_data:
+    driver: local

@@ -9,3 +9,7 @@ class Funcionario(BaseModel):
     telefone: str = None
     grupo: int
     senha: str = None
+    
+class LoginFuncionario(BaseModel):
+    cpf: str
+    senha: str
